@@ -1,0 +1,33 @@
+<?php
+
+return [
+
+    'title' => 'Quản lý nhân viên',
+    'list' => 'Danh sách nhân viên',
+    'name' => 'Tên nhân viên',
+    'password' => 'Mật khẩu',
+    'created_at' => 'Ngày tạo',
+    'updated_at' => 'Ngày sửa',
+    'add' => 'Thêm nhân viên',
+    'image' => 'Hình ảnh',
+    'username' => 'Email',
+    'phone' => 'Số điện thoại',
+    'address' => 'Địa chỉ',
+    'role' => 'Chức vụ',
+    'department' => 'Phòng ban',
+    'worked_at' => 'Ngày làm việc',
+    'dob' => 'Ngày sinh',
+    'work_status' => 'Tình trạng',
+    'is_work' => 'Đang làm việc',
+    'quit' => 'Đã nghỉ việc',
+    'edit' => 'Cập nhật thông tin',
+    'confirm' => 'Bạn có chắc muốn xóa nhân viên này không',
+    'reset' => 'Bạn có chắc muốn reset mật khẩu của nhân viên ',
+    'change_password' => 'Thay đổi mật khẩu',
+    'current_password' => 'Mật khẩu cũ',
+    'new_password' => 'Mật khẩu mới',
+    'confirm_password' => 'Xác nhận mật khẩu',
+    'old_password' => 'Mật khẩu cũ',
+    'profile' => 'Hồ sơ của bạn',
+    'setAdmin' => 'Cấp quyền Admin',
+];
