@@ -6,6 +6,6 @@ use App\Repositories\BaseRepository\BaseRepositoryInterface;
 
 interface DepartmentRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getListUsersHaveBirthday();
+    public function getListDepartmentHasUserBirthday();
     public function getList();
 }

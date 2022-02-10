@@ -30,7 +30,6 @@
 
 -   Truy cập http://localhost:49310/?server=laravel_db&username=root
 -   Tạo DB: laravel (utf8mb4_general_ci)
--   Run: php artisan migrate
 
 **B6: Edit file .env<br>**
 DB_CONNECTION=mysql<br>
@@ -61,18 +60,25 @@ Website: http://localhost:49081/<br>
 -   kiểm tra upload_max_filesize bằng phpinfo()
 
 **B10: composer require doctrine/dbal**
+-   Run: php artisan migrate 
 
 **B11: composer require maatwebsite/excel**
 
-**B11: php artisan config:cache**
+**B12: php artisan config:cache**
 
 **B13: php artisan db:seed**
 
-**B14: php artisan queue:work**
+**B14: Cấu hình email để gửi qua mailtrap**
 
-**B15: php artisan schedule:work**
+-   Truy cập https://mailtrap.io/ và đăng ký tài khoản mới
+-   Tạo mới 1 Inbox
+-   Trong phần Integrations chọn Laravel và sửa trong file .env theo thông tin trên mailtrap 
 
-**B16: Đăng nhập bằng tài khoản admin**
+**B15: php artisan queue:work**
+
+**B16: php artisan schedule:work**
+
+**B17: Đăng nhập bằng tài khoản admin**
 
 -   email: admin@gmail.com
 -   password: 123456

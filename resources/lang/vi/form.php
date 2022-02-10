@@ -22,4 +22,5 @@ return [
     'search_by_name' => 'Tìm kiếm theo tên',
     'reset_password' => 'Reset mật khẩu',
     'select_manager' => '--Chọn tên người quản lý',
+    'sort' => 'Lọc'
 ];

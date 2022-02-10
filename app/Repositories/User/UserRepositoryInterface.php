@@ -11,4 +11,5 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
     public function getList();
     public function exportDepartment($department_id);
     public function export();
+    public function getListUsersHaveBirthday($department_id);
 }

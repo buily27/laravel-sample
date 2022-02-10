@@ -12,7 +12,7 @@
                 @csrf
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" name="old_password"
-                        placeholder="{{ __('user.old_password') }}">
+                        placeholder="{{ __('user.old_password') }}" value="{{ old('old_password') }}">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

@@ -3,6 +3,9 @@
 return [
 
     'choose' => '-- Chọn',
+    'sort'=> '-- Sắp xếp theo',
+    'reset_sort'=> 'Hủy lọc',
+    'order_by'=> '-- Thứ tự',
     'dob' => 'Ngày sinh',
     'ascending' => 'Tăng dần',
     'descending' => 'Giảm dần',

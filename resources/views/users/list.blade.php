@@ -6,7 +6,7 @@
     <div class="card" style="margin-top: 20px;">
         <div class="d-flex justify-content-between table-title">
             <h2 class="card-title"><b>{{ __('user.title') }}</b></h2>
-            <button class="btn btn-success btn-export">
+            <button class="btn btn-success btn-export" title="{{ __('link.export') }}">
                 Export
             </button>
         </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-2">
                         <select name="sort_by" class="form-control">
-                            <option selected disabled>{{ __('sort.choose') }}</option>
+                            <option selected disabled>{{ __('sort.sort') }}</option>
                             <option value="dob" @if (request()->sort_by == 'dob')selected @endif>{{ __('sort.dob') }}</option>
                             <option value="worked_at" @if (request()->sort_by == 'worked_at')selected @endif>{{ __('sort.date') }}
                             </option>
@@ -57,15 +57,18 @@
 
                     <div class="col-md-2">
                         <select name="sort_type" class="form-control">
-                            <option selected disabled>{{ __('sort.choose') }}</option>
+                            <option selected disabled>{{ __('sort.order_by') }}</option>
                             <option value="asc" @if (request()->sort_type == 'asc')selected @endif>{{ __('sort.ascending') }}</option>
                             <option value="desc" @if (request()->sort_type == 'desc')selected @endif>{{ __('sort.descending') }}</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary" id="filter-submit">
+                        <button class="btn btn-primary" id="filter-submit" title="{{ __('form.sort') }}">
                             <i class="fas fa-filter"></i>
                         </button>
+                        <a href="{{ route('user.index') }}" class="btn btn-info" title="{{ __('sort.reset_sort') }}">
+                            <i class="fas fa-sync"></i>
+                        </a>
                     </div>
                     @if (Auth::user()->is_admin != config('common.IS_ADMIN'))
                         <div class="col-md-2">
@@ -111,15 +114,12 @@
                             <tr>
                                 <td>
                                     @if (!empty($user->image))
-                                        <img src="{{ 'storage/' . $user->image }}"
-                                            class="profile-user-img img-responsive" style="border: 0">
+                                        <img src="{{ 'storage/' . $user->image }}" class="profile-user-image">
                                     @else
-                                        <img src="{{ 'uploads/default_image.png' }}"
-                                            class="profile-user-img img-responsive" style="border: 0">
+                                        <img src="{{ 'uploads/default_image.png' }}" class="profile-user-image">
                                     @endif
 
                                 </td>
-
                                 <td>
                                     {{ $user->name }}
                                 </td>
@@ -136,7 +136,10 @@
                                     {{ $user->address }}
                                 </td>
                                 <td>
-                                    {{ $user->role->name }}
+                                    @if ($user->is_admin)
+                                        Admin,
+                                    @endif
+                                    {{ $user->role->name}}
                                 </td>
                                 <td>
                                     {{ $user->department->name }}
@@ -156,14 +159,14 @@
                                 </td>
                                 @can('viewAdmin', \App\User::class)
                                     <td>
-                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-primary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-
-                                        <a href="#" class="btn btn-outline-danger" data-toggle="modal"
-                                            data-target="#modal-delete-{{ $user->id }}"
-                                            data-link="{{ route('user.destroy', $user->id) }}"><i
-                                                class="fas fa-trash"></i></a>
-
+                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-primary"
+                                            title="{{ __('link.edit') }}"><i class="fas fa-pencil-alt"></i></a>
+                                        @can('delete', $user)
+                                            <a href="#" class="btn btn-outline-danger" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $user->id }}"
+                                                data-link="{{ route('user.destroy', $user->id) }}"
+                                                title="{{ __('link.delete') }}"><i class="fas fa-trash"></i></a>
+                                        @endcan
                                         <form id="delete_form_{{ $user->id }}"
                                             action="{{ route('user.destroy', $user->id) }}" method="POST"
                                             style="display: none;">
@@ -171,7 +174,8 @@
                                             @csrf
                                         </form>
                                         <a href="#" class="btn btn-outline-danger" data-toggle="modal"
-                                            data-target="#modal-reset-{{ $user->id }}"><i class="fas fa-recycle"></i></a>
+                                            data-target="#modal-reset-{{ $user->id }}"
+                                            title="{{ __('link.reset_password') }}"><i class="fas fa-recycle"></i></a>
                                     </td>
 
                                     @include('modals/delete')

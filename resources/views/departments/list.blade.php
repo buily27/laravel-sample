@@ -77,13 +77,21 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">{{ __('link.message_delete') }}</div>
+                                            @if (!count($department->users))
+                                                <div class="modal-body">{{ __('link.message_delete') }}</div>
+                                            @else
+                                                <div class="modal-body">{{ __('link.message_exists_user') }}</div>
+                                            @endif
+
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                                     {{ __('form.cancel') }}
                                                 </button>
-                                                <button type="button" class="btn btn-danger"
-                                                    onclick="event.preventDefault();document.getElementById('delete_form_{{ $department->id }}').submit()">{{ __('link.delete') }}</button>
+                                                @if (!count($department->users))
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="event.preventDefault();document.getElementById('delete_form_{{ $department->id }}').submit()">{{ __('link.delete') }}
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

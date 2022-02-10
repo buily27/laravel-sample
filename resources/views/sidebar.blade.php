@@ -20,9 +20,9 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     @if (!empty(Auth::user()->image))
-                        <img src="{{ 'storage/' . Auth::user()->image }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ 'storage/' . Auth::user()->image }}" class="user-image-circle" alt="User Image">
                     @else
-                        <img src="{{ 'uploads/default_image.png' }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ 'uploads/default_image.png' }}" class="user-image-circle" alt="User Image">
                     @endif
                 </div>
                 <div class="info">
@@ -35,8 +35,7 @@
         @can('viewAdmin', \App\User::class)
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                    <li class="nav-item">
+                    <li class="nav-item @if (str_contains(request()->path(), 'department')) menu-is-opening menu-open @endif">
                         <a href="{{ route('department') }}" class="nav-link" @if (str_contains(request()->path(), 'department'))
                             id="active_url"
                             @endif>
@@ -48,21 +47,21 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('department') }}" class="nav-link">
+                                <a href="{{ route('department') }}" class="nav-link @if (Request::is('department'))active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('department.list') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('department/create') }}" class="nav-link">
+                                <a href="{{ route('department/create') }}" class="nav-link @if (Request::is('department/create'))active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('department.add') }}</p>
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>    
 
-                    <li class="nav-item">
+                    <li class="nav-item @if (str_contains(request()->path(), 'user')) menu-is-opening menu-open @endif">
                         <a href="{{ route('user.index') }}" class="nav-link" @if (str_contains(request()->path(), 'user'))
                             id="active_url"
                             @endif>
@@ -74,13 +73,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('user.index') }}" class="nav-link">
+                                <a href="{{ route('user.index') }}" class="nav-link @if (Request::is('user'))active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('user.list') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('user.create') }}" class="nav-link">
+                                <a href="{{ route('user.create') }}" class="nav-link @if (Request::is('user/create'))active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('user.add') }}</p>
                                 </a>

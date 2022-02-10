@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name('login');
 Route::post('/login', [LoginController::class, 'checkLogin'])->name('checkLogin');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','first_login']], function () {
     Route::group(['middleware' => 'role'], function () {
         //Route department
         Route::get('/department', [DepartmentController::class, 'index'])->name('department');
@@ -38,7 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
         //End route user
 
         Route::get('/reset-password/{id}', [ResetPasswordController::class, 'resetPassword'])->name('reset_password');
+
     });
+
     Route::get('/export/user', [UserController::class, 'export'])->name('user.export')->middleware('role:' . config('common.IS_MANAGEMENT'));
     Route::get('/user', [UserController::class, 'index'])->name('user.index')->middleware('role:' . config('common.IS_MANAGEMENT'));
 

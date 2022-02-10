@@ -37,11 +37,11 @@ class DepartmentRepository extends BaseRepository implements DepartmentRepositor
         return $data;
     }
 
-    public function getListUsersHaveBirthday()
+    public function getListDepartmentHasUserBirthday()
     {
-        $data = $this->model->with(['users' => function ($query) {
-            $query->whereMonth('dob', '=', Carbon::now()->month)->whereDay('dob', '=', Carbon::now()->day)->whererole_id(config('common.IS_MEMBER'));
-        }])->get();
+        $data = $this->model->whereHas('users' , function ($query) {
+            $query->whereMonth('dob', '=',Carbon::now()->month)->whereDay('dob', '=', Carbon::now()->day)->whererole_id(config('common.IS_MEMBER'));
+        })->get();
         return $data;
     }
 }

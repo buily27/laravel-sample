@@ -83,4 +83,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->filterByWorkStatus()
             ->get();
     }
+
+    public function getListUsersHaveBirthday($department_id){
+        $data = $this->model->wheredepartment_id($department_id)
+                            ->whereMonth('dob', '=',Carbon::now()->month)
+                            ->whereDay('dob', '=', Carbon::now()->day)
+                            ->whererole_id(config('common.IS_MEMBER'))->get();
+        return $data;
+    }
 }

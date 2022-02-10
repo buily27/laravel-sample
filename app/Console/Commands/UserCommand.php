@@ -56,26 +56,32 @@ class UserCommand extends Command
      */
     public function handle()
     {
-        $departments = $this->department->getListUsersHaveBirthday();
+        $departments = $this->department->getListDepartmentHasUserBirthday();
         if (count($departments)) {
+            $listManagers = array();
+            $messages = array();
             foreach ($departments as $department) {
-                if (count($department->users)) {
+                $messages['messages'] = [
+                    'title' => __('messages.hpbd'),
+                    'task' => __('messages.list_member_have_birthday'),
+                    'data' => '',
+                ];
+                $manager = $this->user->findManagerByDepartment($department->id);
+                if (!is_null($manager)) {
+                    array_push($listManagers, $manager);
                     $message = [
                         'title' => __('messages.hpbd'),
                         'task' => __('messages.list_member_have_birthday'),
                         'data' => '',
                     ];
-                    $manager = $this->user->findManagerByDepartment($department->id);
-                    if (!is_null($manager)) {
-                        foreach ($department->users as $user) {
-                            if ($user->role_id == config('common.IS_MEMBER')) {
-                                $message['data'] .= $user->name . ", ";
-                            }
-                        }
-                        SendMail::dispatch($message, $manager->username);
+                    $listUsersHaveBirthday = $this->user->getListUsersHaveBirthday($department->id);
+                    foreach ($listUsersHaveBirthday as $user) {
+                        $message['data'] .= $user->name . ", ";
                     }
+                    array_push($messages, $message);
                 }
             }
+            SendMail::dispatch($messages, $listManagers);
         }
     }
 }

@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ProfileRequest;
+use App\Imports\UsersImport;
 use App\Jobs\SendMail;
 use App\Repositories\Department\DepartmentRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
@@ -85,7 +86,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = $request->except("_token", "is_admin");
-        if (isset($request->is_admin)) {
+        if ($request->is_admin) {
             $data['is_admin'] = config('common.IS_ADMIN');
         }
         if ($data['role_id'] == config('common.IS_MANAGEMENT')) {
@@ -148,17 +149,18 @@ class UserController extends Controller
         if (is_null($dataUser)) {
             return redirect('404');
         }
-
+        
         $data = $request->except("_token", "old_image", "is_admin");
-        if (Auth::user()->role_id != $data['role_id']) {
+        if (Auth::user()->role_id != $data['role_id'] && Auth::user()->id == $dataUser['id']) {
             session()->flash('error', __('messages.change_role_self'));
             return redirect()->back();
         }
 
-        if (isset($request->is_admin)) {
+        if (!is_null($request->is_admin)) {
             $data['is_admin'] = config('common.IS_ADMIN');
-        } else {
-            if (Auth::user()->is_admin != config('common.IS_ADMIN')) {
+           
+        }else{
+            if(Auth::user()->id != $dataUser->id){
                 $data['is_admin'] = config('common.IS_NOT_ADMIN');
             }
         }
@@ -251,12 +253,13 @@ class UserController extends Controller
     /**
      * export Excel
      *
-     * @param  mixed $excel
-     * @param  mixed $export
+     * @param  object $excel
+     * @param  object $export
      * @return void
      */
     public function export(Excel $excel, UsersExport $export)
     {
         return $excel->download($export, 'Thông tin nhân viên_' . Carbon::now()->format('Y-m-d_H:i:s') . '.xlsx');
     }
+
 }

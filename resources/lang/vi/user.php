@@ -21,6 +21,8 @@ return [
     'is_work' => 'Đang làm việc',
     'quit' => 'Đã nghỉ việc',
     'edit' => 'Cập nhật thông tin',
+    'delete' => 'Xóa nhân viên',
+    'reset_password'=>'Reset mật khẩu',
     'confirm' => 'Bạn có chắc muốn xóa nhân viên này không',
     'reset' => 'Bạn có chắc muốn reset mật khẩu của nhân viên ',
     'change_password' => 'Thay đổi mật khẩu',

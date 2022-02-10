@@ -53,18 +53,25 @@ class ResetPasswordController extends Controller
     public function resetPassword($id)
     {
         $user = $this->user->find($id);
+        if (is_null($user)) {
+            return redirect('404');
+        }
         if (Auth::user()->can('resetPassword', $user)) {
             $password = Str::random(10);
+            $data['password'] = Hash::make($password);
+            $data['is_first_login'] = config('common.IS_FIRST_LOGIN');
+            $this->user->update($data, $id);
+            $listEmails = array();
+            $messages = array();
+            array_push($listEmails, $user);
             $message = [
                 'title' => __('messages.reset_password'),
                 'task' => __('messages.new_password'),
                 'data' => $password
             ];
-            $job = (new SendMail($message, $user->username));
+            array_push($messages, $message);
+            $job = (new SendMail($messages,  $listEmails));
             $this->dispatch($job);
-            $data['password'] = Hash::make($password);
-            $data['is_first_login'] = config('common.IS_FIRST_LOGIN');
-            $this->user->update($data, $id);
             session()->flash('success', __('messages.reset_success'));
         } else {
             session()->flash('error',  __('messages.reset_self'));

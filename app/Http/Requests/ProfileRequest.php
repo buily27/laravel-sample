@@ -28,7 +28,7 @@ class ProfileRequest extends FormRequest
         return [
             'image' => ['mimes:jpeg,jpg,png', 'max:5120'],
             'phone' => ['nullable', 'regex:/^[0-9]{10}$/', 'unique:users,phone,' . $id],
-            'dob' => ['required', 'date_format:Y-m-d', 'before:today'],
+            'dob' => ['required', 'before:today'],
         ];
     }
 
@@ -44,7 +44,6 @@ class ProfileRequest extends FormRequest
             'phone.unique' => __('validation.unique.phone'),
             'image.max' => __('validation.max.size'),
             'phone.regex' => __('validation.regex.phone'),
-            'date_format' => __('validation.date_format'),
             'dob.before' => __('validation.dob_before'),
         ];
     }

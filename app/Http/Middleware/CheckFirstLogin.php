@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckRole
+class CheckFirstLogin
 {
     /**
      * Handle an incoming request.
@@ -15,16 +15,10 @@ class CheckRole
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next)
     {
-        
-        if (Auth::user()->is_admin == config('common.IS_ADMIN')) {
+        if(Auth::user()->is_first_login !== config('common.IS_FIRST_LOGIN')){
             return $next($request);
-        }
-        foreach ($roles as $role) {
-            if (Auth::user()->role->id == $role) {
-                return $next($request);
-            }
         }
         return redirect('404');
     }

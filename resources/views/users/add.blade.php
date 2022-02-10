@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">{{ __('user.dob') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="dob" class="form-control" id="exampleInputPassword1"
+                    <input type="date" name="dob" class="form-control" id="exampleInputPassword1"
                         placeholder="{{ __('form.input_dob') }}" value="{{ old('dob') }}">
                     @error('dob')
                         <p class="text-red">{{ $message }}</p>
@@ -75,7 +75,7 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">{{ __('user.worked_at') }} <span
                             class="text-danger">*</span></label>
-                    <input type="text" name="worked_at" class="form-control" id="exampleInputPassword1"
+                    <input type="date" name="worked_at" class="form-control" id="exampleInputPassword1"
                         placeholder="{{ __('form.input_worked_at') }}" value="{{ old('worked_at') }}">
                     @error('worked_at')
                         <p class="text-red">{{ $message }}</p>
@@ -89,7 +89,7 @@
                             <select class="form-control" name="role_id">
                                 <option value="">{{ __('form.select_role') }}</option>
                                 @foreach ($allRoles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}" {{old('role_id') == $role->id ? "selected" : "" }}>{{ $role->name }}</option>
                                 @endforeach
                             </select>
                             @error('role_id')
@@ -104,7 +104,7 @@
                                 <option value="">{{ __('form.select_department') }}</option>
                                 @if (count($allDepartments))
                                     @foreach ($allDepartments as $department)
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        <option value="{{ $department->id }}" {{old('department_id') == $department->id ? "selected" : "" }}>{{ $department->name }}</option>
                                     @endforeach
                                 @else
                                     {{ __('messages.empty') }}
@@ -117,7 +117,9 @@
                     </div>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="is_admin[]" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" name="is_admin" class="form-check-input" id="exampleCheck1" @if (old('is_admin'))
+                        checked
+                    @endif>
                     <label class="form-check-label" for="exampleCheck1">{{ __('user.setAdmin') }}</label>
                 </div>
             </div>

@@ -8,6 +8,7 @@
             <th>{{ __('user.address') }}</th>
             <th>{{ __('user.role') }}</th>
             <th>{{ __('user.department') }}</th>
+            <th>{{ __('user.created_at') }}</th>
             <th>{{ __('user.updated_at') }}</th>
             <th>{{ __('user.worked_at') }}</th>
             <th>{{ __('user.work_status') }}</th>
@@ -37,6 +38,9 @@
                     </td>
                     <td>
                         {{ $user->department->name }}
+                    </td>
+                    <td>
+                        {{ $user->created_at }}
                     </td>
                     <td>
                         {{ $user->updated_at }}

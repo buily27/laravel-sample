@@ -108,3 +108,22 @@
     font-weight: 600;
     color: #0062cc;
 }
+
+#active_url {
+    background-color: #007bff;
+    color: white;
+}
+.table-title {
+    padding: 10px 10px;
+}
+.profile-user-image{
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+}
+.user-image-circle{
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: cover;
+    border-radius: 50%;
+}

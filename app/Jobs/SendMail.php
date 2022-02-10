@@ -19,16 +19,16 @@ class SendMail implements ShouldQueue
 
 
     private $messages;
-    private $email;
+    private $listManagers;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($messages, $email)
+    public function __construct($messages, $listManagers)
     {
         $this->messages = $messages;
-        $this->email = $email;
+        $this->listManagers = $listManagers;
     }
 
     /**
@@ -38,7 +38,9 @@ class SendMail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new MailNotify($this->messages));
+        for ($i = 0; $i < count($this->listManagers); $i++) {
+            Mail::to($this->listManagers[$i]->username)->send(new MailNotify($this->messages[$i]));
+        }
     }
 
     /**

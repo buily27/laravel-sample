@@ -8,21 +8,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id='edit-user-{{ Auth::user()->id }}' action="{{ route('user.update-profile') }}" method="POST"
-                    enctype="multipart/form-data">
+                <form id='edit-user-{{ Auth::user()->id }}' action="{{ route('user.update-profile') }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{ __('user.phone') }}</label>
                         <input type="text" name="phone" class="form-control" id="exampleInputEmail1"
-                            placeholder="{{ __('form.input_phone') }}" value="{{ Auth::user()->phone }}">
+                            placeholder="{{ __('form.input_phone') }}"
+                            value="{{ old('phone', Auth::user()->phone) }}">
                         @error('phone')
                             <p class="text-red">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">{{ __('user.dob') }}</label>
-                        <input type="text" name="dob" class="form-control" id="exampleInputEmail1"
-                            placeholder="{{ __('form.input_dob') }}" value="{{ Auth::user()->dob }}">
+                        <input type="date" name="dob" class="form-control" id="exampleInputEmail1"
+                            placeholder="{{ __('form.input_dob') }}" value="{{ old('dob', Auth::user()->dob) }}">
                         @error('dob')
                             <p class="text-red">{{ $message }}</p>
                         @enderror
@@ -38,12 +39,16 @@
                     <div class="row">
                         <div class="col-6">
                             @if (!empty(Auth::user()->image))
-                                <label>{{ __('form.old_image') }}</label>
+                                <div class="row">
+                                    <label>{{ __('form.old_image') }}</label>
+                                </div>
                                 <img class="img-fluid mb-3" src="{{ asset('storage/' . Auth::user()->image) }}">
                             @endif
                         </div>
                         <div class="col-6">
-                            <label id='new_image'></label>
+                            <div class="row">
+                                <label id='new_image'></label>
+                            </div>
                             <img class="img-fluid mb-3" src="" id="preview-image">
                         </div>
                     </div>

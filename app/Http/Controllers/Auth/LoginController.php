@@ -43,14 +43,10 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
         if (Auth::attempt(['username' => $username, 'password' => $password])) {
-            if (Auth::user()->is_first_login == config('common.IS_FIRST_LOGIN')) {
-                return redirect()->route('change-password');
+            if (Auth::user()->role->id == config('common.IS_MEMBER') && Auth::user()->is_admin != config('common.IS_ADMIN')) {
+                return redirect()->route('profile');
             } else {
-                if (Auth::user()->role->id == config('common.IS_MEMBER') && Auth::user()->is_admin != config('common.IS_ADMIN')) {
-                    return redirect()->route('profile');
-                } else {
-                    return redirect()->route('user.index');
-                }
+                return redirect()->route('user.index');
             }
         } else {
             session()->flash('error', __('messages.login_error'));

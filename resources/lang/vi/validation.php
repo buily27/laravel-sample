@@ -17,7 +17,6 @@ return [
     'regex' => [
         'phone' => 'Số điện thoại phải có 10 số'
     ],
-    'date_format' => 'Ngày nhập phải có định dạng yyyy-mm-dd',
     'role' => 'Yêu cầu chọn chức vụ',
     'department' => 'Yêu cầu chọn phòng ban',
     'unique' => [
